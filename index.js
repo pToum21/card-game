@@ -9,10 +9,10 @@ const cardObjectDefinitions = [
 const cardBackImgPath = '/images/card-back-blue.png'
 const cardContainerElem = document.querySelector('.card-container')
 
-createCards()
+createCards();
 
-function createCards(){
-    cardObjectDefinitions.forEach((cardItem)=>{
+function createCards() {
+    cardObjectDefinitions.forEach((cardItem) => {
         createCard(cardItem)
     })
 }
@@ -72,22 +72,22 @@ function addSrcToTimageElement(imgElem, src) {
 function addChildElement(parentElem, childElem) {
     parentElem.appendChild(childElem)
 }
-function addCardtoGridCell(card){
-const cardPositionClassName = mapCardIdtoGridCell(card)
-const cardPosElem = document.querySelector(cardPositionClassName)
-addChildElement(cardPosElem, card)
+function addCardtoGridCell(card) {
+    const cardPositionClassName = mapCardIdtoGridCell(card)
+    const cardPosElem = document.querySelector(cardPositionClassName)
+    addChildElement(cardPosElem, card)
 }
-function mapCardIdtoGridCell(card){
-    if(card.id == 1){
+function mapCardIdtoGridCell(card) {
+    if (card.id == 1) {
         return '.card-pos-a'
     }
-    else if(card.id == 2){
+    else if (card.id == 2) {
         return '.card-pos-b'
     }
-    else if(card.id == 3){
+    else if (card.id == 3) {
         return '.card-pos-c'
     }
-    else if(card.id == 4){
+    else if (card.id == 4) {
         return '.card-pos-d'
     }
 }
