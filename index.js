@@ -1,10 +1,3 @@
-const cardBackImgPath = '/images/card-back-blue.png'
-const cardContainerElem = document.querySelector('.card-container')
-let cards = []
-const playGameButtonElem = document.getElementById('playGame')
-const collapsedGridAreaTemplate = '"a a" "a a"'
-const cardCollectionCellClass = ".card-pos-a"
-
 const cardObjectDefinitions = [
     { id: 1, imagePath: '/images/card-KingHearts.png' },
     { id: 2, imagePath: '/images/card-JackClubs.png' },
@@ -12,6 +5,19 @@ const cardObjectDefinitions = [
     { id: 4, imagePath: '/images/card-AceSpades.png' }
 
 ]
+
+
+
+const cardBackImgPath = '/images/card-back-blue.png'
+const cardContainerElem = document.querySelector('.card-container')
+let cards = []
+const playGameButtonElem = document.getElementById('playGame')
+const collapsedGridAreaTemplate = '"a a" "a a"'
+const cardCollectionCellClass = ".card-pos-a"
+const numCards = cardObjectDefinitions.length
+let cardPositions = []
+
+
 loadGame()
 
 
@@ -77,12 +83,23 @@ function suffleCards() {
     let shuffleCount = 0
 
     function shuffle() {
+        randomizeCardPositions()
+
         if (shuffleCount == 500) {
             clearInterval(id)
         } else {
             shuffleCount++;
         }
     }
+}
+
+function randomizeCardPositions(){
+    const random1 = Math.floor(Math.random() * numCards) + 1
+    const random2 = Math.floor(Math.random() * numCards)  + 1
+
+    const temp = cardPositions[random1 - 1]
+    cardPositions[random1 - 1] = cardPositions[random2 - 1]
+    cardPositions[random2 - 1] = temp
 }
 
 function createCards() {
@@ -129,7 +146,14 @@ function createCard(cardItem) {
 
     addCardtoGridCell(cardElem)
 
+    initializeCardPositions(cardElem)
+
 }
+
+function initializeCardPositions(card){
+    cardPositions.push(card.id)
+}
+
 
 function createElement(elemType) {
     return document.createElement(elemType)
