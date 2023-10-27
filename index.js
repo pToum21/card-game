@@ -39,7 +39,7 @@ function initializeNewGame() {
 function startRound() {
     initializeNewRound()
     collectCards()
-    // flipCards(true)
+    flipCards(true)
     shuffleCards()
 }
 function initializeNewRound() {
@@ -108,7 +108,7 @@ function randomizeCardPositions() {
 
 function dealCards() {
     addCardsToAppropriateCell();
-    const areasTemplate = returnGridAreasMappedToCardPos(); 
+    const areasTemplate = returnGridAreasMappedToCardPos();
 
     transformGridArea(areasTemplate);
 }
