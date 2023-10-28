@@ -113,6 +113,7 @@ function dealCards() {
     transformGridArea(areasTemplate);
 }
 
+// function that fixed the grid
 function returnGridAreasMappedToCardPos() {
     let firstPart = '';
     let secondPart = '';
