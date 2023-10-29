@@ -7,7 +7,7 @@ const cardObjectDefinitions = [
 ]
 
 
-
+// all variables in the global sccope
 const cardBackImgPath = '/images/card-back-blue.png'
 const cardContainerElem = document.querySelector('.card-container')
 let cards = []
