@@ -8,21 +8,29 @@ const cardObjectDefinitions = [
 
 
 // all variables in the global sccope
-const aceId = 4
-const cardBackImgPath = '/images/card-back-blue.png'
-const cardContainerElem = document.querySelector('.card-container')
-let cards = []
-const playGameButtonElem = document.getElementById('playGame')
-const collapsedGridAreaTemplate = '"a a" "a a"'
-const cardCollectionCellClass = ".card-pos-a"
-const numCards = cardObjectDefinitions.length
-let cardPositions = []
+const aceId = 4;
+const cardBackImgPath = '/images/card-back-blue.png';
+const cardContainerElem = document.querySelector('.card-container');
+let cards = [];
+const playGameButtonElem = document.getElementById('playGame');
+const collapsedGridAreaTemplate = '"a a" "a a"';
+const cardCollectionCellClass = ".card-pos-a";
+const numCards = cardObjectDefinitions.length;
+let cardPositions = [];
 let gameInProgress = false;
 let shufflingInProgress = false;
 let cardRevealed = false;
-const currentGameStatusElem = document.querySelector('.current-status')
-const winColor = ''
-const loseColor = ''
+const currentGameStatusElem = document.querySelector('.current-status');
+const scoreContainerElem = document.querySelector('.header-score-container');
+const scoreElem = document.querySelector('.score');
+const roundContainerElem = document.querySelector('.header-round-container');
+const roundElem = document.querySelector('.round');
+const winColor = 'green';
+const loseColor = 'red';
+const primaryColor = "black";
+let roundNum = 0;
+let maxRounds = 4;
+let score = 0;
 
 
 
@@ -31,15 +39,47 @@ const loseColor = ''
 
 loadGame()
 
-function chooseCard() {
+function chooseCard(card) {
     if (canChooseCard()) {
+        evaluateCardChoice(card)
+    }
+}
 
+function calculateScoreToAdd(roundNum) {
+    if (roundNum == 1) {
+        return 100
+    } else if (roundNum == 2) {
+        return 50
+    } else if (roundNum == 3) {
+        return 25
+    } else {
+        return 10
+    }
+}
+
+function calculateScore() {
+    const scoreToAdd = calculateScoreToAdd(roundNum)
+    score = score + scoreToAdd
+}
+
+function updateScore() {
+    calculateScore()
+}
+
+
+
+
+function updateStatusElement(elem, display, color, innerHTML) {
+    elem.style.display = display
+    if (arguments.length > 2) {
+        elem.style.color = color
+        elem.innerHTML = innerHTML
     }
 }
 
 
-function outputChoiceFeedBack(hit){
-    if(hit){
+function outputChoiceFeedBack(hit) {
+    if (hit) {
         updateStatusElement(currentGameStatusElem, "block", winColor, "Hit!! - Well Done!!")
     } else {
         updateStatusElement(currentGameStatusElem, "block", loseColor, "Missed!! :(")
@@ -78,7 +118,9 @@ function startGame() {
     startRound()
 }
 function initializeNewGame() {
-
+    score = 0
+    roundNum = 0
+    shufflingInProgress = false
 }
 function startRound() {
     initializeNewRound()
@@ -87,7 +129,12 @@ function startRound() {
     shuffleCards()
 }
 function initializeNewRound() {
-
+    roundNum++
+    playGameButtonElem.disabled = true
+    gameInProgress = true
+    shufflingInProgress = true
+    cardRevealed = false
+    updateStatusElement(currentGameStatusElem, "block", primaryColor, "Shuffling....")
 }
 
 function collectCards() {
