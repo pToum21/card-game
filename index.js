@@ -8,6 +8,7 @@ const cardObjectDefinitions = [
 
 
 // all variables in the global sccope
+const aceId = 4
 const cardBackImgPath = '/images/card-back-blue.png'
 const cardContainerElem = document.querySelector('.card-container')
 let cards = []
@@ -16,9 +17,52 @@ const collapsedGridAreaTemplate = '"a a" "a a"'
 const cardCollectionCellClass = ".card-pos-a"
 const numCards = cardObjectDefinitions.length
 let cardPositions = []
+let gameInProgress = false;
+let shufflingInProgress = false;
+let cardRevealed = false;
+const currentGameStatusElem = document.querySelector('.current-status')
+const winColor = ''
+const loseColor = ''
+
+
+
+
 
 
 loadGame()
+
+function chooseCard() {
+    if (canChooseCard()) {
+
+    }
+}
+
+
+function outputChoiceFeedBack(hit){
+    if(hit){
+        updateStatusElement(currentGameStatusElem, "block", winColor, "Hit!! - Well Done!!")
+    } else {
+        updateStatusElement(currentGameStatusElem, "block", loseColor, "Missed!! :(")
+    }
+}
+
+
+
+
+function evaluateCardChoice(card) {
+    if (card.id == aceId) {
+        updateScore()
+        outputChoiceFeedBack(true)
+    } else {
+        outputChoiceFeedBack(false)
+    }
+}
+
+
+function canChooseCard() {
+    return gameInProgress == true && !shufflingInProgress && !cardRevealed
+}
+
 
 
 function loadGame() {
